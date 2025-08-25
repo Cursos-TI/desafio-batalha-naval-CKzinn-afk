@@ -1,49 +1,63 @@
 #include <stdio.h>
+#define LINHAS 10
+#define COLUNAS 10
+#define NAVIO 3
+#define TAMANHO 3
 
 int main(){
     //Tabuleiro 
-    int tabuleiro[10][10]= {
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0,}
-    };
-    //Codigo para declarar posição do navio horizontal
-        int navioh[3] = {3,3,3};
-        int linhah;
-        int colunah;
+    int tabuleiro[LINHAS][COLUNAS];
 
-        linhah = 2; colunah = 4;
-
-        for (int i = 0; i < 3; i++)
-        {
-            tabuleiro[linhah][colunah + i] = 3;
+    //Inicializar tabuleiro com agua
+    for (int i = 0; i < LINHAS; i++){
+        for(int j = 0; j < COLUNAS; j++){
+            tabuleiro[i][j] = 0;
         }
-        
+
+    }
+    //Codigo para declarar posição do navio horizontal
+        int linhah = 2, colunah = 4;
+
+    if (colunah + TAMANHO <= COLUNAS){//Declara os limites do tabuleiro na horizontal
+        for (int i = 0; i < TAMANHO; i++)
+        {
+            tabuleiro[linhah][colunah + i] = NAVIO;
+        }
+    }
 
     //Codigo para declarar posição do navio da vertical
-        int naviov[3] = {3,3,3};
-        int linhav;
-        int colunav;
+        int linhav = 5, colunav = 7;
         
-        linhav = 5; colunav = 7;
-        
-        for (int i = 0; i < 3; i++)
+    if (linhav + TAMANHO <= LINHAS){//Declara os limites do tabuleiro na vertical
+        for (int i = 0; i < TAMANHO; i++)
         {
-            tabuleiro[linhav + i][colunav] = 3;
+            tabuleiro[linhav + i][colunav] = NAVIO;
         }
+    }
+
+    //Codigo para declarar posição do navio da diagonal principal
+        int linhaDP = 0, colunaDP = 0;
+
+            if(linhaDP + TAMANHO <= LINHAS && colunaDP + TAMANHO <= COLUNAS) {
+                for (int i = 0; i < TAMANHO; i++) {
+                    tabuleiro[linhaDP + i][colunaDP + i] = NAVIO;
+                }
+            }
+
+    //Codigo para declarar posição do navio da diagonal secundaria
+        int linhaDS = 0, colunaDS = 9;
+
+            if(linhaDS + TAMANHO <= LINHAS && colunaDS - (TAMANHO - 1) >= 0) {
+                for (int i = 0; i < TAMANHO; i++) {
+                    tabuleiro[linhaDS + i][colunaDS - i] = NAVIO;
+                }
+            }
 
 
     //Codigo para imprimir o tabuleiro com navio na tela
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < LINHAS; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < COLUNAS; j++)
             {
                 printf("%d ", tabuleiro[i][j]);
             }
